@@ -84,7 +84,7 @@ public:
         delete temp;
     }
 
-    void delete_val(string name) {
+    void delete_name(string name) {
         if (!head) return;
 
         Node* temp = head;
@@ -179,6 +179,35 @@ int main() {
             cout << "    " << line.getFrontName() << " is served\n";
             line.pop_front();
         }
+
+        // 60% - new customer join at the end
+        if (prob <= 60){
+            string name = getRandomName(names);
+            line.push_back(name);
+            cout << "    " << name << " joined the line\n";
+        }   
+
+        // 20% - customer at end don't want to wait and leave
+        if (prob <= 20 && !line.isEmpty()){
+            cout << "    " << line.getBackName() << " (at the rear) left the line\n";
+            line.pop_back();
+        }
+
+        // 10% - any customer don't want to wait and leave
+        if (prob <= 10 && !line.isEmpty()){
+            string name = getRandomName(names);
+            cout << "    " << name << " left the line\n";
+            line.delete_name(name);
+        }
+        // 10% - VIP joins
+        if (prob <= 10 && !line.isEmpty()){
+            string name = getRandomName(names);
+            line.push_front(name);
+            cout << "    " << name << " (VIP) joins the front of the line\n";
+        }
+
+        cout << "    Resulting line:\n";
+        line.print();
     }
     return 0;
 }
