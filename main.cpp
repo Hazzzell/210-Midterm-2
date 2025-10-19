@@ -136,7 +136,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << "        " << current->data << endl;
             current = current->next;
         }
         cout << endl;
