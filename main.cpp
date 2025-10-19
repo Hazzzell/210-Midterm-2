@@ -156,6 +156,7 @@ int main() {
     loadNames(names);
 
     DoublyLinkedList line;
+
     cout << "Store opens:\n";
 
     // 5 customers at the opening 
@@ -168,25 +169,10 @@ int main() {
     cout << "    Resulting line:\n";
     line.print();
 
-    // define the prob and their event
-    string events[] = {"serve", "join", "rearLeave", "randomLeave", "VIP"};
-    int percentage[] = {40, 60, 20, 10, 10};
-
-    // change percentage to cumlative 
-    int cPercentage[5];
-
-    for (int i = 1; i < 5; i++) cumWeights[i] = cumWeights[i-1] + weights[i];
-
-
     // 20 min run simulation 
     for (int t = 2; t <= 20; ++t){
         cout << "Time step #" << t << ":\n";
 
-        // number of events happen at the same time
-        int numEvents = rand() % 3 + 1;
-        for (int n = 0; n < numEvents; n++){
-            int prob = rand() % 100 + 1;
-        }
         // 40% - customer being helped at beginning 
         int prob = rand() % 100 + 1;             // prob of 1-100
         if (prob <= 40 && !line.isEmpty()){
@@ -195,6 +181,7 @@ int main() {
         }
 
         // 60% - new customer join at the end
+        prob = rand() % 100 + 1; 
         if (prob <= 60){
             string name = getRandomName(names);
             line.push_back(name);
@@ -202,18 +189,21 @@ int main() {
         }   
 
         // 20% - customer at end don't want to wait and leave
+        prob = rand() % 100 + 1; 
         if (prob <= 20 && !line.isEmpty()){
             cout << "    " << line.getBackName() << " (at the rear) left the line\n";
             line.pop_back();
         }
 
         // 10% - any customer don't want to wait and leave
+        prob = rand() % 100 + 1; 
         if (prob <= 10 && !line.isEmpty()){
             string name = getRandomName(names);
             cout << "    " << name << " left the line\n";
             line.delete_name(name);
         }
         // 10% - VIP joins
+        prob = rand() % 100 + 1; 
         if (prob <= 10 && !line.isEmpty()){
             string name = getRandomName(names);
             line.push_front(name);
@@ -224,4 +214,18 @@ int main() {
         line.print();
     }
     return 0;
+}
+
+void loadNames(vector<string>& names){
+    ifstream file("names.txt");
+    string name;
+    while (file >> name){
+        names.push_back(name);
+    }
+}
+
+string getRandomName(const vector<string>& names){
+    if (names.empty()) return "Unknown";
+    int index = rand() % names.size();
+    return names[index];
 }
