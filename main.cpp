@@ -166,7 +166,15 @@ int main() {
         cout << "    " << name << " joins the line\n";
     }
 
-    
+    cout << "    Resulting line:\n";
+    line.print();
+
+    // 20 min run simulation 
+    for (int t = 2; t <= 20; ++t){
+        cout << "Time step #" << t << ":\n";
+
+        
+    }
     return 0;
 }
 
