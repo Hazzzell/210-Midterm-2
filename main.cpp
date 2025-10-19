@@ -8,6 +8,7 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
+// Doubly Linked List Class
 class DoublyLinkedList {
 private:
     struct Node {
@@ -106,6 +107,21 @@ public:
         delete temp;
     }
 
+    // get the name of customer at the front
+    string getFrontName() const {
+        return head ? head->data : "";
+    }
+
+    // get the name of customer at the back
+    string getBackName() const {
+        return tail ? tail->data : "";
+    }
+
+    // check if line is empty
+    bool isEmpty() const{
+        return head == nullptr;
+    }
+
     ~DoublyLinkedList() {
         while (head) {
             Node* temp = head;
@@ -125,20 +141,14 @@ public:
         }
         cout << endl;
     }
-
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
-            cout << "List is empty." << endl;
-            return;
-        }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
-        }
-        cout << endl;
-    }
 };
+
+// function prototypes
+// vector<string>&names reads the comment from file reviews.txt
+// arguments: const string &names
+// returns: NA
+void loadNames(vector<string>& names);
+string getRandomName(const vector<string>& names);
 
 int main() {
     srand(time(0));
@@ -147,6 +157,21 @@ int main() {
         cout << "Error: file not found.\n";
         return 1; 
     }
-    
+
+
+    vector<string> names;
+    loadNames(names);
     return 0;
+}
+
+void loadNames(vector<string>& names){
+    ifstream file("names.txt");
+    string name;
+    while (file >> name){
+        names.push_back(name);
+    }
+}
+
+string getRandomName(const vector<string>& names){
+    if 
 }
