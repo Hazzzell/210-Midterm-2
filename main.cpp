@@ -173,7 +173,12 @@ int main() {
     for (int t = 2; t <= 20; ++t){
         cout << "Time step #" << t << ":\n";
 
-        
+        // 40% - customer being helped at beginning 
+        int prob = rand() % 100 + 1;             // prob of 1-100
+        if (prob <= 40 && !line.isEmpty()){
+            cout << "    " << line.getFrontName() << " is served\n";
+            line.pop_front();
+        }
     }
     return 0;
 }
