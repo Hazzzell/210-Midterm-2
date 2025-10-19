@@ -144,7 +144,7 @@ public:
 };
 
 // function prototypes
-// vector<string>&names reads the comment from file reviews.txt
+// vector<string>& names reads the comment from file names.txt
 // arguments: const string &names
 // returns: NA
 void loadNames(vector<string>& names);
@@ -152,15 +152,21 @@ string getRandomName(const vector<string>& names);
 
 int main() {
     srand(time(0));
-    ifstream file("names.txt");
-    if (!file){
-        cout << "Error: file not found.\n";
-        return 1; 
-    }
-
-
     vector<string> names;
     loadNames(names);
+
+    DoublyLinkedList line;
+
+    cout << "Store opens:\n";
+
+    // 5 customers at the opening 
+    for (int i = 0; i < 5; i++){
+        string name = getRandomName(names);
+        line.push_back(name);
+        cout << "    " << name << " joins the line\n";
+    }
+
+    
     return 0;
 }
 
@@ -173,5 +179,7 @@ void loadNames(vector<string>& names){
 }
 
 string getRandomName(const vector<string>& names){
-    if 
+    if (names.empty()) return "Unknown";
+    int index = rand() % names.size();
+    return names[index];
 }
